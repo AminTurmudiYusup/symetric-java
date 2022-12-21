@@ -7,13 +7,11 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Base64;
 
 import static java.util.Base64.getDecoder;
-import static java.util.Base64.getEncoder;
 
-public class SymetricDecrypt {
+public class SymetricDecryptData {
 
     public static SecretKey decodeSecretKey(String secretKey){
         byte[] decodeKey = getDecoder().decode(secretKey);
@@ -41,11 +39,11 @@ public class SymetricDecrypt {
         String algorithm = "AES/CBC/PKCS5Padding";
 
         //decode secret key and ivParameterSpec
-        SecretKey secretKey = SymetricDecrypt.decodeSecretKey(encodeKey);
-        IvParameterSpec ivParameterSpec= SymetricDecrypt.decodeIVParameterSpec(encodeIvParameterSpec);
+        SecretKey secretKey = SymetricDecryptData.decodeSecretKey(encodeKey);
+        IvParameterSpec ivParameterSpec= SymetricDecryptData.decodeIVParameterSpec(encodeIvParameterSpec);
 
         //decrypt cipher text into plaintext
-        String plainText = SymetricDecrypt.decrypt(cipherText, secretKey, algorithm, ivParameterSpec);
+        String plainText = SymetricDecryptData.decrypt(cipherText, secretKey, algorithm, ivParameterSpec);
         System.out.print(plainText);
 
     }

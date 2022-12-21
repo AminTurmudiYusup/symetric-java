@@ -2,23 +2,20 @@ package org.example;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
-import java.util.Scanner;
 
-import static java.util.Base64.getDecoder;
 import static java.util.Base64.getEncoder;
 
 /**
  * Hello world!
  *
  */
-public class SymetricEncrypt
+public class SymetricGenerateSecretKey
 {
     public static SecretKey generateSecretKey() throws NoSuchAlgorithmException {
         KeyGenerator aesKey = KeyGenerator.getInstance("AES");
@@ -54,24 +51,15 @@ public class SymetricEncrypt
 
     public static void main(String[] args) throws NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, UnsupportedEncodingException {
        //generate secret and salt
-        SecretKey secretKey= SymetricEncrypt.generateSecretKey();
-        IvParameterSpec ivParameterSpec= generateIvParameterSpec();
-
-        Scanner input = new Scanner(System.in);
-        System.out.println("Insert data to encrypt ...");
-        String plainText = input.nextLine();
-        String algorithm = "AES/CBC/PKCS5Padding";
-
-        //encrypt plaintext to ciphertext
-        String encryptedText = SymetricEncrypt.encrypt(plainText, secretKey, algorithm, ivParameterSpec);
-        System.out.println("Encrypted Text >>> "+ encryptedText);
+        SecretKey secretKey= SymetricGenerateSecretKey.generateSecretKey();//create secret key
+        IvParameterSpec ivParameterSpec= generateIvParameterSpec();//generate salt
 
 //        encode secret key
         String secretKeyEncode = encodeSecretKey(secretKey);
         System.out.println("Secret Key encode>>> "+ secretKeyEncode);
 
         //encode salt/or ivParameterSpec
-        String ivEncode = SymetricEncrypt.encodeIVParameterSpec(ivParameterSpec);
+        String ivEncode = SymetricGenerateSecretKey.encodeIVParameterSpec(ivParameterSpec);
         System.out.println("ivParameterSpec Encode>> "+ivEncode);
 
 
